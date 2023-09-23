@@ -1,0 +1,10 @@
+twitter-api:
+  get-all-tweets-url: "https://twitter.com/v2/api/tweets"
+  authorization-token: "auth-token-2222qoyijlb58r"
+  version: 3
+
+instagram-api:
+  get-all-posts-url: "https://instagram.com/v2/api/posts"
+  authorization-token: "auth-token-32222qoyijlb58r"
+  version: 4
+  content-type: "application/json"
