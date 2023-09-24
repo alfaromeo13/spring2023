@@ -18,13 +18,13 @@ public class TwitterController {
     private final TwitterApiService twitterApiService;
 
     @GetMapping
-    ResponseEntity<List<String>> getAllTweets(){
+    public ResponseEntity<List<String>> getAllTweets() {
         return new ResponseEntity<>(twitterApiService.getAllTweets(), HttpStatus.OK);
     }
 
     //for testing purposes only
     @GetMapping("test")
-    ResponseEntity<Void> getInstagramPosts(){
+    public ResponseEntity<Void> getInstagramPosts() {
         twitterApiService.getAllInstagramPosts();
         return new ResponseEntity<>(HttpStatus.OK);
     }

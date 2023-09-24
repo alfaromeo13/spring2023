@@ -1,14 +1,17 @@
 package com.companyname.demo.services;
 
-import com.companyname.demo.dtos.UserDTO;
+import com.companyname.demo.dto.UserCreateDTO;
+import com.companyname.demo.dto.UserDTO;
+import com.companyname.demo.dto.UserUpdateDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Slf4j
@@ -30,9 +33,33 @@ public class UserService {
 
     public List<UserDTO> getAll() {
         return List.of(
-                new UserDTO("jovan",22),
-                new UserDTO("Darko",21),
-                new UserDTO("Marko",20)
+                new UserDTO(1, "jovan", 22, "masline bb"),
+                new UserDTO(2, "Darko", 21, "preko morace"),
+                new UserDTO(3, "Marko", 20, "donja gorica")
         );
+    }
+
+    public Optional<UserDTO> getById(Integer id) {
+        return Stream.of(
+                new UserDTO(1, "jovan", 22, "masline bb"),
+                new UserDTO(2, "Darko", 21, "masline bb"),
+                new UserDTO(3, "Marko", 20, "masline bb")
+        ).filter(u -> u.getId().equals(id)).findFirst();
+    }
+
+    public List<UserDTO> findByAddressStartingWith(String address) {
+        return Stream.of(
+                new UserDTO(1, "jovan", 22, "preko morace bb"),
+                new UserDTO(2, "Darko", 21, "preko maslina bb"),
+                new UserDTO(3, "Marko", 20, "donja gorica bb")
+        ).filter(u -> u.getAddress().startsWith(address)).collect(Collectors.toList());
+    }
+
+    public void create(UserCreateDTO userCreateDTO) {
+        log.info("Created user -> {}", userCreateDTO);
+    }
+
+    public void update(Integer id, UserUpdateDTO usr) {
+        log.info("updated user -> {}", new UserDTO(id, usr.getFullName(), usr.getAge(), usr.getAddress()));
     }
 }

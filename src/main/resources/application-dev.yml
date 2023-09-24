@@ -8,3 +8,6 @@ instagram-api:
   authorization-token: "qoyijlb58r"
   version: 4
   content-type: "application/json"
+
+external-placeholder-api:
+  posts-base-api: "https://jsonplaceholder.typicode.com/posts"
