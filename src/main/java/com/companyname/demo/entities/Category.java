@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "categories")
 public class Category {
+    //TODO::
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
