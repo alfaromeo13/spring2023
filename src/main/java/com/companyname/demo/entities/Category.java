@@ -1,6 +1,28 @@
 package com.companyname.demo.entities;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.ToString;
 
-public class Category implements Serializable {
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@Entity
+@Table(name = "categories")
+public class Category {
+    //TODO::
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String name;
+
+    private String description;
+
+    @ToString.Exclude
+    @JsonManagedReference
+    @OneToMany(mappedBy = "category")
+    private List<Product> products = new ArrayList<>();
 }
