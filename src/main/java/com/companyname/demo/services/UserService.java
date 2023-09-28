@@ -3,16 +3,19 @@ package com.companyname.demo.services;
 import com.companyname.demo.dto.UserCreateDTO;
 import com.companyname.demo.dto.UserDTO;
 import com.companyname.demo.dto.UserUpdateDTO;
+import com.companyname.demo.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 
 @Slf4j
 @Service
@@ -25,6 +28,9 @@ public class UserService {
     @Autowired
     @Qualifier("user2DTO")
     private UserDTO user2;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public void printAllDetails() {
         log.info("User 1 details -> {}", user1);
@@ -61,5 +67,13 @@ public class UserService {
 
     public void update(Integer id, UserUpdateDTO usr) {
         log.info("updated user -> {}", new UserDTO(id, usr.getFullName(), usr.getAge(), usr.getAddress()));
+    }
+
+    public Page<String> printWithPagination(Pageable pageable) {
+        return userRepository.findUserNameInDepartmentIdWithPagination(1, pageable);
+    }
+
+    public Slice<String> printWithSlice(Pageable pageable) {
+        return userRepository.findUserNameInDepartmentIdWithSlicing(1, pageable);
     }
 }

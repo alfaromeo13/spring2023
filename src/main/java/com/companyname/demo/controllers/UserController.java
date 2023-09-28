@@ -7,6 +7,7 @@ import com.companyname.demo.filters.UserSearchFilter;
 import com.companyname.demo.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -108,5 +109,19 @@ public class UserController {
         headers.set("FILE_NAME", "test.pdf");
         headers.set("FILE_EXTENSION", "pdf");
         return new ResponseEntity<>(headers, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("pageable")//?page=0&size=10&sort=firstName,asc
+    public ResponseEntity<Page<String>> paginationSearch(Pageable pageable) {
+        //in this way we prevent user to request for example a million records from database
+        Pageable fixedPageable = PageRequest.of(pageable.getPageNumber(), 10, pageable.getSort());
+        return new ResponseEntity<>(userService.printWithPagination(fixedPageable), HttpStatus.OK);
+    }
+
+    @GetMapping("slicing")//?page=0&size=10&sort=firstName,asc
+    public ResponseEntity<Slice<String>> paginationSlice(Pageable pageable) {
+        //in this way we prevent user to request for example a million records from database
+        Pageable fixedPageable = PageRequest.of(pageable.getPageNumber(), 10, pageable.getSort());
+        return new ResponseEntity<>(userService.printWithSlice(fixedPageable), HttpStatus.OK);
     }
 }

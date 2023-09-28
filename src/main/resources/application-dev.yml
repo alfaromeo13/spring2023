@@ -11,3 +11,13 @@ instagram-api:
 
 external-placeholder-api:
   posts-base-api: "https://jsonplaceholder.typicode.com/posts"
+
+spring:
+  datasource:
+    #url is our connection string (if db is remote,instead of localhost, we just specify port and IP address of remote db)
+    url: jdbc:mysql://localhost:3306/new_database?useSSL=false&serverTimezone=CET&allowPublicKeyRetrieval=true&useUnicode=true
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
