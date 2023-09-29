@@ -1,12 +1,8 @@
-package com.companyname.demo.filters;
+package com.companyname.demo.search;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class UserSearchFilter {
     // attribute names must be same as query param names
     // which are passed and spring will map key to its value

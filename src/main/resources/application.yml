@@ -4,3 +4,4 @@ spring:
   profiles:
     active: dev
 
+#github-token: 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

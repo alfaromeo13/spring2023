@@ -3,6 +3,7 @@ package com.companyname.demo.services;
 import com.companyname.demo.dto.UserCreateDTO;
 import com.companyname.demo.dto.UserDTO;
 import com.companyname.demo.dto.UserUpdateDTO;
+import com.companyname.demo.projections.UserFirstAndLastNameProjection;
 import com.companyname.demo.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +76,9 @@ public class UserService {
 
     public Slice<String> printWithSlice(Pageable pageable) {
         return userRepository.findUserNameInDepartmentIdWithSlicing(1, pageable);
+    }
+
+    public List<UserFirstAndLastNameProjection> findProjection(Integer id) {
+        return userRepository.findUserNameInDepartmentIdCustomProjection(id);
     }
 }

@@ -1,6 +1,5 @@
 package com.companyname.demo.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;

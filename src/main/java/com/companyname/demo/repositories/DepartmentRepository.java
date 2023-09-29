@@ -34,7 +34,7 @@ public interface DepartmentRepository extends JpaRepository<Department, Integer>
                                            @Param("desc") String description);
 
     //Pageable examples
-    //It doesn't matter if relation is LAZY Pageable initializes queries for LAZY relations
+    //It doesn't matter if relation is LAZY Pageable initializes separate queries for LAZY relations
     @Query(value = "select department from Department department " +
             "where department.name like concat(?1 , '%')")
     Page<Department> findByNameWithoutUsers(String departmentName, Pageable pageable);

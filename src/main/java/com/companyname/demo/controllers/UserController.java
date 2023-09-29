@@ -3,7 +3,8 @@ package com.companyname.demo.controllers;
 import com.companyname.demo.dto.UserCreateDTO;
 import com.companyname.demo.dto.UserDTO;
 import com.companyname.demo.dto.UserUpdateDTO;
-import com.companyname.demo.filters.UserSearchFilter;
+import com.companyname.demo.projections.UserFirstAndLastNameProjection;
+import com.companyname.demo.search.UserSearchFilter;
 import com.companyname.demo.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,8 @@ public class UserController {
 
     @GetMapping("hello")
     public ResponseEntity<String> getMessage() {
-        return new ResponseEntity<>("Hello message.", HttpStatus.OK);
+        return ResponseEntity.ok("Hello message.");
+        //return ResponseEntity.notFound().build();
     }
 
     @GetMapping("details")
@@ -123,5 +125,12 @@ public class UserController {
         //in this way we prevent user to request for example a million records from database
         Pageable fixedPageable = PageRequest.of(pageable.getPageNumber(), 10, pageable.getSort());
         return new ResponseEntity<>(userService.printWithSlice(fixedPageable), HttpStatus.OK);
+    }
+
+    //return custom field projections
+    @GetMapping("projection/{department-id}")
+    public ResponseEntity<List<UserFirstAndLastNameProjection>> find(
+            @PathVariable("department-id") Integer departmentId) {
+        return ResponseEntity.ok(userService.findProjection(departmentId));
     }
 }

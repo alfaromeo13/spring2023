@@ -1,7 +1,8 @@
-package com.companyname.demo.filters;
+package com.companyname.demo.search;
 
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Date;
