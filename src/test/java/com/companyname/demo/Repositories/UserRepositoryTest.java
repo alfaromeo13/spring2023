@@ -14,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -58,5 +60,7 @@ public class UserRepositoryTest {
         //if row doesn't exist exception will be thrown
         User user = optionalUser.orElseThrow(EntityNotFoundException::new);
         log.info("{} {}", user.getFirstName(), user.getLastName());
+
+        assertThat(optionalUser).isNotEmpty();
     }
 }

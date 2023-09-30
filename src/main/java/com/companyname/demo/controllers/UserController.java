@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<UserDTO> getById(@PathVariable Integer id) {
+    public ResponseEntity<UserDTO> getById(@PathVariable Long id) {
         Optional<UserDTO> user = userService.getById(id);
         return user.map(userDTO -> new ResponseEntity<>(userDTO, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -81,7 +81,7 @@ public class UserController {
     //preauthorize if id exists
     @PutMapping("{id}")
     public ResponseEntity<Void> update(
-            @PathVariable Integer id, @RequestBody UserUpdateDTO userUpdateDTO) {
+            @PathVariable Long id, @RequestBody UserUpdateDTO userUpdateDTO) {
         log.info("Updating user with id {} with details {} ", id, userUpdateDTO);
         userService.update(id, userUpdateDTO);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

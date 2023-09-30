@@ -3,12 +3,14 @@ package com.companyname.demo.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
 @Entity
+@DynamicUpdate
 @Table(name = "products")
 public class Product {
     @Id
@@ -26,13 +28,13 @@ public class Product {
     private BigDecimal price;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private Date createdAt = new Date();
 
     @Column(name = "is_active")
     private Boolean isActive = Boolean.FALSE;
 
     @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_category")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 }

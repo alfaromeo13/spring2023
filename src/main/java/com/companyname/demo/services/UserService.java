@@ -40,25 +40,25 @@ public class UserService {
 
     public List<UserDTO> getAll() {
         return List.of(
-                new UserDTO(1, "jovan", 22, "masline bb"),
-                new UserDTO(2, "Darko", 21, "preko morace"),
-                new UserDTO(3, "Marko", 20, "donja gorica")
+                new UserDTO(1L, "jovan", 22, "masline bb"),
+                new UserDTO(2L, "Darko", 21, "preko morace"),
+                new UserDTO(3L, "Marko", 20, "donja gorica")
         );
     }
 
-    public Optional<UserDTO> getById(Integer id) {
+    public Optional<UserDTO> getById(Long id) {
         return Stream.of(
-                new UserDTO(1, "jovan", 22, "masline bb"),
-                new UserDTO(2, "Darko", 21, "masline bb"),
-                new UserDTO(3, "Marko", 20, "masline bb")
+                new UserDTO(1L, "jovan", 22, "masline bb"),
+                new UserDTO(2L, "Darko", 21, "masline bb"),
+                new UserDTO(3L, "Marko", 20, "murtovine bb")
         ).filter(u -> u.getId().equals(id)).findFirst();
     }
 
     public List<UserDTO> findByAddressStartingWith(String address) {
         return Stream.of(
-                new UserDTO(1, "jovan", 22, "preko morace bb"),
-                new UserDTO(2, "Darko", 21, "preko maslina bb"),
-                new UserDTO(3, "Marko", 20, "donja gorica bb")
+                new UserDTO(1L, "jovan", 22, "preko morace bb"),
+                new UserDTO(2L, "Darko", 21, "preko maslina bb"),
+                new UserDTO(3L, "Marko", 20, "donja gorica bb")
         ).filter(u -> u.getAddress().startsWith(address)).collect(Collectors.toList());
     }
 
@@ -66,7 +66,7 @@ public class UserService {
         log.info("Created user -> {}", userCreateDTO);
     }
 
-    public void update(Integer id, UserUpdateDTO usr) {
+    public void update(Long id, UserUpdateDTO usr) {
         log.info("updated user -> {}", new UserDTO(id, usr.getFullName(), usr.getAge(), usr.getAddress()));
     }
 
