@@ -27,6 +27,6 @@ public class Department {
     //hibernate will look at User entity because we used it as generic class for List
     @ToString.Exclude
     @JsonManagedReference
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department") //we can set cascade=CascadeType.ALL
     private List<User> users = new ArrayList<>();
 }

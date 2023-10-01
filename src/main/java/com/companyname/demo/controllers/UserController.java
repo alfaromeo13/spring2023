@@ -1,7 +1,7 @@
 package com.companyname.demo.controllers;
 
 import com.companyname.demo.dto.UserCreateDTO;
-import com.companyname.demo.dto.UserDTO;
+import com.companyname.demo.dto.UserTestDTO;
 import com.companyname.demo.dto.UserUpdateDTO;
 import com.companyname.demo.projections.UserFirstAndLastNameProjection;
 import com.companyname.demo.search.UserSearchFilter;
@@ -40,13 +40,13 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getAll() {
+    public ResponseEntity<List<UserTestDTO>> getAll() {
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<UserDTO> getById(@PathVariable Long id) {
-        Optional<UserDTO> user = userService.getById(id);
+    public ResponseEntity<UserTestDTO> getById(@PathVariable Long id) {
+        Optional<UserTestDTO> user = userService.getById(id);
         return user.map(userDTO -> new ResponseEntity<>(userDTO, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -54,7 +54,7 @@ public class UserController {
     //~ service which returns all users whose address starts with some string
     //http://localhost:8080/api/users/by-address-name?address=preko
     @GetMapping("by-address-name") //since address name isn't unique identifier we use query param
-    public ResponseEntity<List<UserDTO>> getByAddressStartingWith(@RequestParam String address) {
+    public ResponseEntity<List<UserTestDTO>> getByAddressStartingWith(@RequestParam String address) {
         // by default @RequestParam(required = true).With required=false if value isn't passed
         // the default value will be null(this is only good for search queries for multiple cases)
         log.info("Query param : {} ", address);
@@ -65,7 +65,7 @@ public class UserController {
     // (also in this way we limit number of query params that will be mapped in our RAM
     // other query names from those in filter class will be ignored and not mapped in memory)
     @GetMapping("search")//http://localhost:8080/api/users/search?name=preko&ageFrom=22&alfa=beta
-    public ResponseEntity<List<UserDTO>> filterSearch(UserSearchFilter searchFilter) {
+    public ResponseEntity<List<UserTestDTO>> filterSearch(UserSearchFilter searchFilter) {
         log.info("{}", searchFilter);
         return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
     }

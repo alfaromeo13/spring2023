@@ -25,6 +25,13 @@ public class CategoryRepositoryTest {
     private CategoryRepository categoryRepository;
 
     @Test
+    void findByProxy() { //like this we only create proxy object
+        Category category = categoryRepository.getReferenceById(1);
+        log.info("id = {}", category.getId());
+        log.info("name = {}", category.getName()); //throws Exception!
+    }
+
+    @Test
     void cascadeDeleteTest() {
         categoryRepository.deleteById(2);
     }

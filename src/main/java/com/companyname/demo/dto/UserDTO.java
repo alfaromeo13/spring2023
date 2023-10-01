@@ -1,13 +1,14 @@
 package com.companyname.demo.dto;
 
-import lombok.*;
+import lombok.Data;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class UserDTO {
     private Long id;
-    private String fullName;
+    private String firstName;
+    private String lastName;
+    private String username;
+    private String password;
     private Integer age;
-    private String address;
+    private Boolean isActive;
 }

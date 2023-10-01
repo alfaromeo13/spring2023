@@ -20,6 +20,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //for these logical questions JPA methods are very nice and quick
     boolean existsByUsername(String username);
 
+    //left join fetch because we want user even if he doesn't have any roles
+    @Query(value = """
+            select user from User user left join fetch user.roles where user.id = ?1
+            """)
+    User getUserWithRoles(Long id);
+
     // select * from users join
     // departments on user.fk_department = department.id
     // where user.username = ? and department.name = ?
@@ -69,7 +75,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //1.Mapping using Records (since Java 15) .This is alternative to mapping with DTO classes
     @Query(value =
             "select new com.companyname.demo.records.UserFirstAndLastNameRecord(user.firstName,user.lastName)" +
-            " from User user join user.department department where department.id= ?1")
+                    " from User user join user.department department where department.id= ?1")
     List<UserFirstAndLastNameRecord> getByDepartmentIdWithRecord(Integer id);
 
     //2.Mapping using Tuple (worst way)
@@ -95,9 +101,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select user.firstName from User user" +
             " join user.department department where department.id = ?1 ")
     Slice<String> findUserNameInDepartmentIdWithSlicing(Integer id, Pageable pageable);
-
-
-//    @Query(value="select user from User user join fetch user.roles join user.department department where department.id = :id")
-//    List<User> findUserIn
-
 }

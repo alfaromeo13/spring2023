@@ -1,7 +1,7 @@
 package com.companyname.demo.services;
 
 import com.companyname.demo.dto.UserCreateDTO;
-import com.companyname.demo.dto.UserDTO;
+import com.companyname.demo.dto.UserTestDTO;
 import com.companyname.demo.dto.UserUpdateDTO;
 import com.companyname.demo.projections.UserFirstAndLastNameProjection;
 import com.companyname.demo.repositories.UserRepository;
@@ -24,11 +24,11 @@ public class UserService {
 
     @Autowired
     @Qualifier("userDTO") //this finds alias from spring bean container
-    private UserDTO user1;
+    private UserTestDTO user1;
 
     @Autowired
     @Qualifier("user2DTO")
-    private UserDTO user2;
+    private UserTestDTO user2;
 
     @Autowired
     private UserRepository userRepository;
@@ -38,27 +38,27 @@ public class UserService {
         log.info("User 2 details -> {}", user2);
     }
 
-    public List<UserDTO> getAll() {
+    public List<UserTestDTO> getAll() {
         return List.of(
-                new UserDTO(1L, "jovan", 22, "masline bb"),
-                new UserDTO(2L, "Darko", 21, "preko morace"),
-                new UserDTO(3L, "Marko", 20, "donja gorica")
+                new UserTestDTO(1L, "jovan", 22, "masline bb"),
+                new UserTestDTO(2L, "Darko", 21, "preko morace"),
+                new UserTestDTO(3L, "Marko", 20, "donja gorica")
         );
     }
 
-    public Optional<UserDTO> getById(Long id) {
+    public Optional<UserTestDTO> getById(Long id) {
         return Stream.of(
-                new UserDTO(1L, "jovan", 22, "masline bb"),
-                new UserDTO(2L, "Darko", 21, "masline bb"),
-                new UserDTO(3L, "Marko", 20, "murtovine bb")
+                new UserTestDTO(1L, "jovan", 22, "masline bb"),
+                new UserTestDTO(2L, "Darko", 21, "masline bb"),
+                new UserTestDTO(3L, "Marko", 20, "murtovine bb")
         ).filter(u -> u.getId().equals(id)).findFirst();
     }
 
-    public List<UserDTO> findByAddressStartingWith(String address) {
+    public List<UserTestDTO> findByAddressStartingWith(String address) {
         return Stream.of(
-                new UserDTO(1L, "jovan", 22, "preko morace bb"),
-                new UserDTO(2L, "Darko", 21, "preko maslina bb"),
-                new UserDTO(3L, "Marko", 20, "donja gorica bb")
+                new UserTestDTO(1L, "jovan", 22, "preko morace bb"),
+                new UserTestDTO(2L, "Darko", 21, "preko maslina bb"),
+                new UserTestDTO(3L, "Marko", 20, "donja gorica bb")
         ).filter(u -> u.getAddress().startsWith(address)).collect(Collectors.toList());
     }
 
@@ -67,7 +67,7 @@ public class UserService {
     }
 
     public void update(Long id, UserUpdateDTO usr) {
-        log.info("updated user -> {}", new UserDTO(id, usr.getFullName(), usr.getAge(), usr.getAddress()));
+        log.info("updated user -> {}", new UserTestDTO(id, usr.getFullName(), usr.getAge(), usr.getAddress()));
     }
 
     public Page<String> printWithPagination(Pageable pageable) {

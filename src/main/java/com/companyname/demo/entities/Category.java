@@ -3,6 +3,7 @@ package com.companyname.demo.entities;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NonNull;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -27,11 +28,11 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
 
-    public void addProduct(Product product) {
-        if (product != null) this.products.add(product);
+    public void addProduct(@NonNull Product product) {
+        this.products.add(product);
     }
 
-    public void removeProduct(Integer productId) {
+    public void removeProduct(@NonNull Integer productId) {
         products.removeIf(product -> product.getId().equals(productId));
     }
 }

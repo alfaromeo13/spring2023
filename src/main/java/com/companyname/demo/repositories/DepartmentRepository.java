@@ -55,8 +55,8 @@ public interface DepartmentRepository extends JpaRepository<Department, Integer>
     Page<Integer> findIdsByName(@Param("name") String departmentName, Pageable pageable);
 
     //2.fetch departments with users where department.id in [collection from last query] (WITH NO LIMIT!)
-    @Query(value = "select distinct department from Department department " +
-            "join fetch department.users where department.id in (:ids)")
+    @Query(value = "select department from Department department " +
+            "join fetch department.users users where department.id in (:ids)")
     List<Department> findByIdsWithUsers(@Param("ids") List<Integer> departmentIds);
     //NOTE:: we can't return Page<Department> to the end user.We have to manually create the Page
 }

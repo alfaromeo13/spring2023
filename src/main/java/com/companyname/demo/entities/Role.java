@@ -20,6 +20,8 @@ public class Role {
     private String description;
 
     @ToString.Exclude
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(
+            mappedBy = "roles",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     List<User> users = new ArrayList<>();
 }

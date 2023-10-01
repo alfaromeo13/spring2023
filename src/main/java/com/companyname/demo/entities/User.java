@@ -3,6 +3,7 @@ package com.companyname.demo.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NonNull;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -44,8 +45,16 @@ public class User {
     @ToString.Exclude
     @JoinTable(
             name = "users_roles",
-            joinColumns = @JoinColumn(name = "fk_role"),
-            inverseJoinColumns = @JoinColumn(name = "fk_user")
+            joinColumns = @JoinColumn(name = "fk_user"),
+            inverseJoinColumns = @JoinColumn(name = "fk_role")
     )
     private List<Role> roles = new ArrayList<>();
+
+    public void addRole(@NonNull Role role) {
+        roles.add(role);
+    }
+
+    public void removeRole(@NonNull Integer id) {
+        roles.removeIf(role -> role.getId().equals(id));
+    }
 }

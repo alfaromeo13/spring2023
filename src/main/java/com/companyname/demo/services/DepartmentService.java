@@ -1,6 +1,8 @@
 package com.companyname.demo.services;
 
+import com.companyname.demo.dto.DepartmentDTO;
 import com.companyname.demo.entities.Department;
+import com.companyname.demo.mappers.DepartmentMapper;
 import com.companyname.demo.repositories.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DepartmentService {
 
+    private final DepartmentMapper mapper;
     private final DepartmentRepository departmentRepository;
 
     public Page<Department> findByNameWithoutUsers(String name, Pageable pageable) {
@@ -23,9 +26,9 @@ public class DepartmentService {
         return departmentRepository.findByNameWithUsers(name, pageable);
     }
 
-    public List<Department> findByNameWithUsersBestWay(String name, Pageable pageable) {
+    public List<DepartmentDTO> findByNameWithUsersBestWay(String name, Pageable pageable) {
         Page<Integer> ids = departmentRepository.findIdsByName(name, pageable);
-        return departmentRepository.findByIdsWithUsers(ids.getContent());
-
+        List<Department> departments = departmentRepository.findByIdsWithUsers(ids.getContent());
+        return mapper.toDTOList(departments); //🤪
     }
 }
