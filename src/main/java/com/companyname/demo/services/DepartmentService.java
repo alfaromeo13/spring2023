@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,5 +31,10 @@ public class DepartmentService {
         Page<Integer> ids = departmentRepository.findIdsByName(name, pageable);
         List<Department> departments = departmentRepository.findByIdsWithUsers(ids.getContent());
         return mapper.toDTOList(departments); //🤪
+    }
+
+    @Transactional //package ->org.springframework.transaction
+    public void doSomethingInTransaction() {
+        //...
     }
 }
