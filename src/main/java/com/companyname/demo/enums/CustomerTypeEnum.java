@@ -1,4 +1,4 @@
-package com.companyname.demo.enumerations;
+package com.companyname.demo.enums;
 
 public enum CustomerTypeEnum {
     INDIVIDUAL, LEGAL

@@ -1,6 +1,6 @@
 package com.companyname.demo.entities;
 
-import com.companyname.demo.enumerations.CustomerTypeEnum;
+import com.companyname.demo.enums.CustomerTypeEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,5 +25,5 @@ public class Customer {
     private Boolean isVip = Boolean.FALSE;
 
     @Column(name = "joined_at")
-    private Date joinedAt;
+    private Date joinedAt = new Date();
 }
