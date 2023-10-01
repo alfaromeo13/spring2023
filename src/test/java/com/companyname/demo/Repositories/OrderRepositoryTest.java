@@ -18,6 +18,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @Slf4j
 @ActiveProfiles("dev")
 @ExtendWith(SpringExtension.class)
@@ -26,8 +28,6 @@ public class OrderRepositoryTest {
 
     @Autowired
     private OrderRepository orderRepository;
-
-    //TODO:: check number of executed queries?
 
     @Test
     void createOrderWithMultipleItems() {
@@ -65,7 +65,9 @@ public class OrderRepositoryTest {
 
         order.addItem(List.of(item1, item2, item3));
 
-        orderRepository.save(order);
+        Order persistedOrder = orderRepository.save(order);
+        assertThat(persistedOrder).isNotNull();
+        assertThat(persistedOrder.getItems()).hasSize(3);
     }
 
     @Test
@@ -98,13 +100,15 @@ public class OrderRepositoryTest {
 
     @Test
     void changeOrderStatus() {
-        Order order = orderRepository.findWithItems(1);
+        Order order = orderRepository.findWithItems(2);
         order.setStatus(OrderStatusEnum.DONE);
-        orderRepository.save(order);
+        Order updatedOrder = orderRepository.save(order);
+        assertThat(updatedOrder.getStatus()).isEqualTo(OrderStatusEnum.DONE);
     }
 
     @Test
     void deleteOrderWithOrderItems() {
-        orderRepository.deleteById(1);
+        orderRepository.deleteById(3);
+        assertThat(orderRepository.findById(3)).isEmpty();
     }
 }

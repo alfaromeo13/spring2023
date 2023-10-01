@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("dev")
 @ExtendWith(SpringExtension.class)
@@ -24,9 +25,12 @@ public class CustomerRepositoryTest {
     @Test
     void customerCreateTest() {
         Customer customer = new Customer();
-        customer.setFullName("Ivica Vukovic");
+        customer.setFullName("Jovan Vukovic");
         customer.setType(CustomerTypeEnum.INDIVIDUAL);
         customerRepository.save(customer);
+
+        Customer persistedCustomer = customerRepository.findByFullName("Jovan Vukovic");
+        assertThat(persistedCustomer).isNotNull();
     }
 
     @Test
