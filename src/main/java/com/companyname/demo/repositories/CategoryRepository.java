@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
+    // this does this:
+    // select count(*) from Category where category.name = ?1
+    boolean existsByName(String name);
+
     @Query(value = """
             select category from Category category
             join fetch category.products where category.id = :id

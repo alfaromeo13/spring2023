@@ -13,6 +13,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -20,11 +21,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //for these logical questions JPA methods are very nice and quick
     boolean existsByUsername(String username);
 
+    Optional<User> findByUsername(String username);
+
     //left join fetch because we want user even if he doesn't have any roles
     @Query(value = """
             select user from User user left join fetch user.roles where user.id = ?1
             """)
     User getUserWithRoles(Long id);
+
+    @Query(value = """
+            select user from User user left join fetch user.roles where user.username = ?1
+            """)
+    Optional<User> findByUsernameWithRoles(String username);
 
     // select * from users join
     // departments on user.fk_department = department.id

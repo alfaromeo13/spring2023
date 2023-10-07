@@ -3,5 +3,14 @@ spring:
     name: Spring App
   profiles:
     active: dev
+#  security: #if we set these for each request, one must enter their credentials which is bad
+#    user:
+#      name: admin
+#      password: admin
+
+jwt: #secret-key is in base64 string!
+  secret: PPx0cwVa3Lk/nj/YniygwLc3bLAr48TFmdMQOh3oY120FZAtwTzCWeS13O0SesvF
+  validityInMinutes: 15 # 15min
+  refreshTokenValidityInMinutes: 43200 # 30days
 
 #github-token: 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

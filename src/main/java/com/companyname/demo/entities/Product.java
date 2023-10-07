@@ -37,4 +37,7 @@ public class Product {
     @JoinColumn(name = "fk_category")
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+
+//    @Version //JPA optimistic locking (for transactions)
+//    private int version; //starts from 0 because of int
 }
