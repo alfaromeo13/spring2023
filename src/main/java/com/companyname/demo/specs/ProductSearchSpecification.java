@@ -4,6 +4,7 @@ import com.companyname.demo.entities.Category;
 import com.companyname.demo.entities.Product;
 import com.companyname.demo.search.ProductSearchFilter;
 import jakarta.persistence.criteria.*;
+import lombok.NonNull;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
@@ -19,7 +20,7 @@ public class ProductSearchSpecification implements Specification<Product> {
     private ProductSearchFilter productSearchFilter; //passed search filters
 
     @Override //predicates => dynamic where clause (depends on params which are passed to the specification)
-    public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+    public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, @NonNull CriteriaBuilder criteriaBuilder) {
         //CriteriaBuilder is used for making WHERE cases
         //CriteriaQuery<?> is used for making sub queries,group by,distinct,... (PODUPITI)
         //all of this can be done by criteria query

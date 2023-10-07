@@ -14,10 +14,23 @@ external-placeholder-api:
 
 spring:
   datasource:
-    #url is our connection string (if db is remote,instead of localhost, we just specify port and IP address of remote db)
+    #url is our connection string (if db is remote, instead of localhost, we just specify port and IP address of remote db)
     url: jdbc:mysql://localhost:3306/new_database?useSSL=false&serverTimezone=CET&allowPublicKeyRetrieval=true&useUnicode=true
     username: root
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
+
+  # email configuration
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jovanvukovic09@gmail.com #sender email
+    password: ctrnwzthugudhizm
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

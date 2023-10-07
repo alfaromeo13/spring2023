@@ -3,6 +3,7 @@ package com.companyname.demo.services;
 import com.companyname.demo.dto.UserCreateDTO;
 import com.companyname.demo.dto.UserTestDTO;
 import com.companyname.demo.dto.UserUpdateDTO;
+import com.companyname.demo.entities.User;
 import com.companyname.demo.projections.UserFirstAndLastNameProjection;
 import com.companyname.demo.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -80,5 +81,9 @@ public class UserService {
 
     public List<UserFirstAndLastNameProjection> findProjection(Integer id) {
         return userRepository.findUserNameInDepartmentIdCustomProjection(id);
+    }
+
+    public Optional<User> findByUsernameWithRoles(String username) {
+        return userRepository.findByUsernameWithRoles(username);
     }
 }

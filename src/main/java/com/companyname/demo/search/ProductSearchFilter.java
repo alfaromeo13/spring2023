@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Data
+@Data //-> because of getters and setters for mapping passed values
 public class ProductSearchFilter {
     private String title;
     private String shortDescription;

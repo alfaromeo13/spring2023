@@ -13,6 +13,8 @@ public class ProductDTO {
     private String longDescription;
     private BigDecimal price;
     private Date createdAt = new Date();
-    private Boolean isActive;
+    //isActive's default value is false.If we pass true it will be true
+    private Boolean isActive = Boolean.FALSE;
+    //we also just pass id of category(there is no need for whole object)
     private CategoryDTO category;
 }
