@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,6 @@ public class AuthController {
     //here we expose APIS for login and register
     private final JwtTokenProvider tokenProvider;
     private final AuthenticationManager authenticationManager;
-//    private final OtpService otpService;
-
 
     @PostMapping("login")
     public ResponseEntity<JwtTokenDTO> login(@RequestBody LoginDTO login) {
@@ -37,9 +36,13 @@ public class AuthController {
             // this does all background logic for us.Checks users password with BCrypt
             Authentication auth = authenticationManager.authenticate(authentication);
             log.info("Authentication after successful login: {}", auth);
+            JwtTokenDTO token = tokenProvider.generateToken(auth, login.isRememberMe());
+            SecurityContextHolder.getContext().setAuthentication(auth);///???????????????????
+            /*if we use OTP method then: (put the comment on the line above)!
             JwtTokenDTO token = tokenProvider.createTokenAfterVerifiedOtp(login.getUsername(), login.isRememberMe());
-            // otpService.generateOtpAndSendEmail(login.getUsername());
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // OK (200 | 201 | 204)
+            otpService.generateOtpAndSendEmail(login.getUsername());
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // OK (200 | 201 | 204)
+             */
             return new ResponseEntity<>(token, HttpStatus.OK); // OK (200 | 201 | 204)
         } catch (Exception e) {
             log.error("Error occurred on login. Message: {}", e.getMessage());
@@ -47,18 +50,20 @@ public class AuthController {
         }
     }
 
-//    @PostMapping("verify")
-//    public ResponseEntity<JwtTokenDTO> verify(@RequestBody VerifyOtpDTO verifyOtpDTO) {
-//        boolean isOtpValid = otpService.isOtpValid(verifyOtpDTO.getUsername(), verifyOtpDTO.getOtpCode());
-//        if (!isOtpValid) {
-//            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // 401
-//        }
-//
-//        JwtTokenDTO tokenDTO = tokenProvider.createTokenAfterVerifiedOtp(
-//                verifyOtpDTO.getUsername(),
-//                verifyOtpDTO.isRememberMe()
-//        );
-//
-//        return new ResponseEntity<>(tokenDTO, HttpStatus.CREATED); // 201 | 200
-//    }
+/* if we want to verify OTP code then:
+    @PostMapping("verify")
+    public ResponseEntity<JwtTokenDTO> verify(@RequestBody VerifyOtpDTO verifyOtpDTO) {
+        boolean isOtpValid = otpService.isOtpValid(verifyOtpDTO.getUsername(), verifyOtpDTO.getOtpCode());
+        if (!isOtpValid) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // 401
+        }
+
+        JwtTokenDTO tokenDTO = tokenProvider.createTokenAfterVerifiedOtp(
+                verifyOtpDTO.getUsername(),
+                verifyOtpDTO.isRememberMe()
+        );
+
+        return new ResponseEntity<>(tokenDTO, HttpStatus.CREATED); // 201 | 200
+    }
+    */
 }

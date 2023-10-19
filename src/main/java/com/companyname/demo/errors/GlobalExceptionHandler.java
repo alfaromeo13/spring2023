@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.HashMap;
@@ -34,6 +35,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ValidationException.class) //ex is exception that is being thrown
     public ResponseEntity<Object> handleCustomValidationException(ValidationException ex) {
         return new ResponseEntity<>(createErrors(ex.getErrors().getFieldErrors()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<Object> handleUploadSizeException() {
+        return new ResponseEntity<>(
+                new ErrorDTO("images",
+                        "images.error",
+                        "Maximum upload size exceeded :D . Maximum is 100MB"),
+                HttpStatus.PAYLOAD_TOO_LARGE);
+    }
+
+    @ExceptionHandler(DocumentNotFoundException.class)
+    public ResponseEntity<Object> handleDocumentNotFoundException(DocumentNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     private Map<String, Object> createErrors(List<FieldError> fieldErrorList) {

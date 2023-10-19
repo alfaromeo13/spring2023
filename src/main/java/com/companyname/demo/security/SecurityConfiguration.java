@@ -56,7 +56,9 @@ public class SecurityConfiguration {
                         .requestMatchers(
                                 "/api/products/**",
                                 "/api/users/hello",
-                                "/api/authenticate/**"
+                                "/api/authenticate/**",
+                                "/api/documents/**",
+                                "/api/documents/download/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
                         .requestMatchers("/api/categories/**").authenticated() // this rule won't override above one

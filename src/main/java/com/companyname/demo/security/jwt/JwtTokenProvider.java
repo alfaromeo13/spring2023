@@ -45,7 +45,7 @@ public class JwtTokenProvider {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    private JwtTokenDTO generateToken(Authentication authentication, boolean rememberMe) {
+    public JwtTokenDTO generateToken(Authentication authentication, boolean rememberMe) {
         // Collection<GrantedAuthority>
         String authorities = authentication.getAuthorities()
                 .stream()
