@@ -8,3 +8,7 @@ instagram-api:
   authorization-token: "auth-token-32222qoyijlb58r"
   version: 4
   content-type: "application/json"
+
+spring:
+  liquibase:
+    contexts: prod

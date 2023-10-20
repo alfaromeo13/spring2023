@@ -1,6 +1,7 @@
 package com.companyname.demo.controllers;
 
 import com.companyname.demo.services.DocumentService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class DocumentController {
     }
 
     @GetMapping("download/{id}")
-    public ResponseEntity<ByteArrayResource> download(@PathVariable Integer id) {
-        return ResponseEntity.ok(new ByteArrayResource(documentService.download(id)));
+    public ResponseEntity<ByteArrayResource> download(@PathVariable Integer id, HttpServletResponse response) {
+        return ResponseEntity.ok(new ByteArrayResource(documentService.download(id, response)));
     }
 }

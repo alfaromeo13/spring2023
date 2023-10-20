@@ -3,7 +3,10 @@ spring:
     name: Spring App
   profiles:
     active: dev
-#  security: #if we set these for each request, one must enter their credentials which is bad
+  liquibase: #Liquibase configuration
+    change-log: classpath:liquibase/master.xml
+
+#  security: #if we set these for each request, one must enter their credentials, which is bad
 #    user:
 #      name: admin
 #      password: admin

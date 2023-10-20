@@ -24,6 +24,7 @@
         <spring-security-core.version>6.1.4</spring-security-core.version>
         <json-webtoken.version>0.11.5</json-webtoken.version>
         <google.guava-version>32.1.2-jre</google.guava-version>
+        <liquibase-core.version>4.24.0</liquibase-core.version>
     </properties>
 
     <dependencies>
@@ -133,6 +134,13 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${google.guava-version}</version>
+        </dependency>
+
+        <!-- Liquibase for database structure versioning -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase-core.version}</version>
         </dependency>
 
     </dependencies>

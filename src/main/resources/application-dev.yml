@@ -39,5 +39,8 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
 
+  liquibase:
+    contexts: dev
+
 documents:
   base-path: /home/ja/Downloads/test-dir/

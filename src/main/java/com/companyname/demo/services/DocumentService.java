@@ -3,6 +3,7 @@ package com.companyname.demo.services;
 import com.companyname.demo.entities.Document;
 import com.companyname.demo.errors.DocumentNotFoundException;
 import com.companyname.demo.repositories.DocumentRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -43,11 +44,14 @@ public class DocumentService {
     }
 
     @SneakyThrows
-    public byte[] download(Integer id) {
+    public byte[] download(Integer id, HttpServletResponse response) {
+        //TODO: return custom DTO class with 2 attributes (byte[] file + String fileName)
         Optional<Document> documentOptional = documentRepository.findById(id);
         if (documentOptional.isPresent()) {
             Document document = documentOptional.get();
             Path path = Paths.get(document.getPath());
+            //with this we return file name
+            response.setHeader("FILE-NAME", document.getName());
             return Files.readAllBytes(path);
         } else throw new DocumentNotFoundException("Document with id " + id + " not found!");
         //since this is our custom class, we need to handle it globally to avoid 500 error
