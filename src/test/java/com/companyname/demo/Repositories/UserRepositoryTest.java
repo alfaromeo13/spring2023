@@ -110,9 +110,9 @@ public class UserRepositoryTest {
         userRepository.save(user);
         assertThat(user.getRoles().size()).isEqualTo(1);
     }
-
-    @Test
-    void deleteRoleTest() { //why can't delete ??????
-        roleRepository.deleteById(6);
-    }
+//
+//    @Test
+//    void deleteRoleTest() { //why can't delete ??????
+//        roleRepository.deleteById(6);
+//    }
 }

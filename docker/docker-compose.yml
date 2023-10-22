@@ -1,0 +1,42 @@
+version: '3.4'
+
+services: #this is a configuration of our container which runs Java APP (Spring Boot)
+  #all services must be part of the same network to be visible to others
+  #Java App (SpringBoot)
+  my-app-srv:
+    build:
+      context: ..
+      dockerfile: my-app-srv.dockerfile
+    image: demo/my-app-srv:1.0.0 #this is our custom name for image in the file above
+    ports: #port inside container and port outside of container
+      - "8080:8080"
+    volumes: #here mapping of folders is done conf folder into config!
+      - ./conf:/config
+    environment:
+      SPRING_PROFILES_ACTIVE: prod #with this when packing our app, we don't have to define which is active profile
+    restart: on-failure #important for production.Ex. server is restarted due to power outage and what should happen to our docker services
+    container_name: my-app-srv
+    networks: #we define our network name
+      - privateNet
+
+# MySQL 5.7.36
+#  app-db:
+#    #we don't need a build section because we already did docker pull, but we can keep it
+#    build:
+#      context: ..
+#      dockerfile: my-database.dockerfile
+#    image: demo/app-db:5.7.36 #this will create a new mysql image for us
+#    ports:
+#      - "3307:3307" #we already have db on 3306
+#    volumes:
+#      - ./db-data:/var/lib/mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: password
+#      MYSQL_TCP_PORT: 3307
+#    restart: on-failure
+#    container_name: app-db
+#    networks:
+#      - privateNet
+
+networks:
+  privateNet:

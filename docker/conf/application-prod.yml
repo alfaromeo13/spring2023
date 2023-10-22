@@ -1,0 +1,48 @@
+twitter-api:
+  get-all-tweets-url: "https://dev.twitter.com/v2/api/tweets"
+  authorization-token: "qoyijlb58r"
+  version: 3
+
+instagram-api:
+  get-all-posts-url: "https://dev.instagram.com/v2/api/posts"
+  authorization-token: "qoyijlb58r"
+  version: 4
+  content-type: "application/json"
+
+external-placeholder-api:
+  posts-base-api: "https://jsonplaceholder.typicode.com/posts"
+
+spring:
+  datasource:
+    #url is our connection string (if db is remote, instead of localhost, we just specify port and IP address of remote db)
+    url: jdbc:mysql://192.168.8.104:3306/new_database?useSSL=false&serverTimezone=CET&allowPublicKeyRetrieval=true&useUnicode=true
+    # if we use mysql image then -> url: jdbc:mysql://app-db:3307/new_database?useSSL=false&serverTimezone=CET&allowPublicKeyRetrieval=true&useUnicode=true
+    # also we would also change username and password
+    username: jovan23
+    password: hiperbola12345
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+
+  # email configuration
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jovanvukovic09@gmail.com #sender email
+    password: ctrnwzthugudhizm
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  liquibase:
+    contexts: dev
+
+documents:
+  base-path: /home/ja/Downloads/test-dir/

@@ -10,9 +10,16 @@
     </parent>
     <groupId>com.companyname</groupId>
     <artifactId>demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <!--here we define our application version-->
+    <version>1.0.0</version>
     <name>demo</name>
     <description>demo</description>
+
+<!--    we add this to specify jar packaging of an app-->
+    <packaging>jar</packaging>
+
+    <!--we add this to specify war packaging of an app-->
+<!--    <packaging>war</packaging>-->
 
     <properties>
         <java.version>17</java.version>
@@ -142,6 +149,13 @@
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase-core.version}</version>
         </dependency>
+
+        <!--Tomcat dependency for WAR packaging-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-tomcat</artifactId>-->
+<!--            <version>3.1.5</version>-->
+<!--        </dependency>-->
 
     </dependencies>
     <build>
