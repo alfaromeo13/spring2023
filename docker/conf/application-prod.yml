@@ -13,13 +13,17 @@ external-placeholder-api:
   posts-base-api: "https://jsonplaceholder.typicode.com/posts"
 
 spring:
-  datasource:
-    #url is our connection string (if db is remote, instead of localhost, we just specify port and IP address of remote db)
-    url: jdbc:mysql://192.168.8.104:3306/new_database?useSSL=false&serverTimezone=CET&allowPublicKeyRetrieval=true&useUnicode=true
-    # if we use mysql image then -> url: jdbc:mysql://app-db:3307/new_database?useSSL=false&serverTimezone=CET&allowPublicKeyRetrieval=true&useUnicode=true
-    # also we would also change username and password
-    username: jovan23
-    password: hiperbola12345
+  datasource: # napravio sam da mozes da pokrenes bez baze jer je sve u dokeru
+    #url is our connection string (if db is remote, instead of localhost, we just specify IP address and port of remote db)
+    #url below for db on local file system
+    #url: jdbc:mysql://192.168.8.104:3306/new_database?useSSL=false&serverTimezone=CET&allowPublicKeyRetrieval=true&useUnicode=true
+    #url below if we use mysql image then ->
+    url: jdbc:mysql://app-db:3307/new_database?useSSL=false&serverTimezone=CET&allowPublicKeyRetrieval=true&useUnicode=true
+    #uncomment these 2 lines if you are connecting onm local db
+    #username: jovan23
+    #password: hiperbola12345
+    username: jovan123
+    password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
