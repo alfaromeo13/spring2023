@@ -19,6 +19,7 @@ services: #this is a configuration of our container which runs Java APP (Spring 
     networks: #we define our network name
       - privateNet
 
+
 #zakomentarisi sekciju ispod ako zelis da radis nad bazom koja je na OS a ne u dokeru
 # MySQL 5.7.36
   app-db:
