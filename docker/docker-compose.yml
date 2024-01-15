@@ -7,39 +7,52 @@ services: #this is a configuration of our container which runs Java APP (Spring 
     build:
       context: ..
       dockerfile: my-app-srv.dockerfile
-    image: demo/my-app-srv:1.0.0 #this is our custom name for image in the file above
+    image: master-slave-demo #this is our custom name for image in the file above
     ports: #port inside container and port outside of container
       - "8080:8080"
     volumes: #here mapping of folders is done conf folder into config!
       - ./conf:/config
     environment:
       SPRING_PROFILES_ACTIVE: prod #with this when packing our app, we don't have to define which is active profile
-    restart: on-failure #important for production.Ex. server is restarted due to power outage and what should happen to our docker services
     container_name: my-app-srv
     networks: #we define our network name
       - privateNet
 
-
-#zakomentarisi sekciju ispod ako zelis da radis nad bazom koja je na OS a ne u dokeru
-# MySQL 5.7.36
-  app-db:
+  # MySQL 5.7.36
+  db1:
     build:
       context: ..
       dockerfile: my-database.dockerfile
-    image: demo/app-db:5.7.36 #this will create a new CUSTOM image name for us
+    image: db1 #this will create a new CUSTOM image name for us
     ports:
       - "3307:3307" #we already have db on 3306
     volumes: #with this we persist it(and won't lose it when containers are down)!
-      - ./db-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./data1:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_TCP_PORT: 3307
-    restart: on-failure
-    container_name: app-db
+    container_name: db1
     networks:
       - privateNet
 
-#da smo koristili i drugi servis kao redis,rabbitmq,.. ovjde bismo morali definisati konfiguraciju
-#i za taj servis
+  # MySQL 5.7.36
+  db2:
+    build:
+      context: ..
+      dockerfile: my-database.dockerfile
+    image: db2
+    ports:
+      - "3309:3309"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./data2:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_TCP_PORT: 3309
+    container_name: db2
+    networks:
+      - privateNet
+
 networks:
   privateNet:

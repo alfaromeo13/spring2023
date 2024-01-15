@@ -22,7 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DocumentService {
 
-    @Value("${documents.base-path}")
+    //@Value("${documents.base-path}")
     private String documentsBasePath;
 
     private final DocumentRepository documentRepository;

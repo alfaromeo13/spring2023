@@ -20,7 +20,7 @@ public class ExternalAPIService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${external-placeholder-api.posts-base-api}")
+    //@Value("${external-placeholder-api.posts-base-api}")
     private String basePostURL;
 
     public List<PostDTO> getAllPosts() {

@@ -6,8 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
+
 
     // this does this:
     // select count(*) from Category where category.name = ?1
@@ -18,4 +21,10 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
             join fetch category.products where category.id = :id
             """)
     Category findByIdWithProducts(@Param("id") Integer id);
+
+    @Override
+    Category save(Category category);
+
+    @Override
+    List<Category> findAll();
 }

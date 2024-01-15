@@ -13,4 +13,6 @@ public interface CategoryMapper {
     List<CategoryDTO> toDTOList(List<Category> categories);
 
     Category toEntity(CategoryDTO categoryDTO);
+
+    CategoryDTO toDTO(Category category);
 }
