@@ -57,7 +57,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("{id}")
-    @PreAuthorize("@customAuth.hasPermissionToDelete(id)")
+    @PreAuthorize("@customAuth.hasPermissionToDelete(#id)")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         categoryService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
