@@ -1,12 +1,12 @@
 spring:
-  master:
+  master: #master is db1
     datasource:
       url: jdbc:mysql://db1:3307/new_database?useSSL=false&serverTimezone=CET&allowPublicKeyRetrieval=true&useUnicode=true
       jdbcUrl: jdbc:mysql://db1:3307/new_database?useSSL=false&serverTimezone=CET&allowPublicKeyRetrieval=true&useUnicode=true
       username: jovan123
       password: password
       driver-class-name: com.mysql.cj.jdbc.Driver
-  slave:
+  slave: #slave is db2
     datasource:
       url: jdbc:mysql://db2:3309/new_database?useSSL=false&serverTimezone=CET&allowPublicKeyRetrieval=true&useUnicode=true
       jdbcUrl: jdbc:mysql://db2:3309/new_database?useSSL=false&serverTimezone=CET&allowPublicKeyRetrieval=true&useUnicode=true

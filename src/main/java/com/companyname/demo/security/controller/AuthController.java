@@ -37,7 +37,7 @@ public class AuthController {
             Authentication auth = authenticationManager.authenticate(authentication);
             log.info("Authentication after successful login: {}", auth);
             JwtTokenDTO token = tokenProvider.generateToken(auth, login.isRememberMe());
-            SecurityContextHolder.getContext().setAuthentication(auth);///???????????????????
+            SecurityContextHolder.getContext().setAuthentication(auth);
             /*if we use OTP method then: (put the comment on the line above)!
             JwtTokenDTO token = tokenProvider.createTokenAfterVerifiedOtp(login.getUsername(), login.isRememberMe());
             otpService.generateOtpAndSendEmail(login.getUsername());
