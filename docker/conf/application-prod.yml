@@ -13,8 +13,8 @@ spring:
       username: jovan123
       password: password
       driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
+  jpa: #jpa configuration
     show-sql: true
-
-
-
+    properties:
+      hibernate:
+        ddl-auto: update

@@ -10,12 +10,9 @@ import java.util.List;
 
 @Repository
 public interface CategoryReadRepository extends JpaRepository<Category,Integer> {
-
-    @Override
     @DataSource(DataSourceType.SLAVE)
     Category save(Category category);
 
-    @Override
     @DataSource(DataSourceType.SLAVE)
     List<Category> findAll();
 

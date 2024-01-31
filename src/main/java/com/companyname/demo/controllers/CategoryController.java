@@ -43,9 +43,8 @@ public class CategoryController {
     @PostMapping
     @PreAuthorize("@customAuth.hasPermission()") //@Valid activates validation annotations
     public ResponseEntity<Void> create(@RequestBody @Valid CategoryDTO categoryDTO, @RequestParam String type) {
-        Errors errors = new BeanPropertyBindingResult(categoryDTO, "categoryDTO");
-        ValidationUtils.invokeValidator(categoryValidator, categoryDTO, errors);
-
+//        Errors errors = new BeanPropertyBindingResult(categoryDTO, "categoryDTO");
+//        ValidationUtils.invokeValidator(categoryValidator, categoryDTO, errors);
         categoryService.save(categoryDTO,type); //ignore id
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

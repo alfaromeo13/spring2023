@@ -1,4 +1,4 @@
-package com.companyname.demo.config;
+package com.companyname.demo.master_slave_config;
 
 import com.companyname.demo.enums.DataSourceType;
 import com.zaxxer.hikari.HikariDataSource;
@@ -40,8 +40,8 @@ public class DataSourceConfig {
         return dataSource;
     }
 
-    @Primary
     @Bean
+    @Primary
     public DataSource dataSource(@Qualifier("routingDataSource") DataSource routingDataSource) {
         return new LazyConnectionDataSourceProxy(routingDataSource);
     }

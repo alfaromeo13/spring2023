@@ -1,4 +1,4 @@
-package com.companyname.demo.config;
+package com.companyname.demo.master_slave_config;
 
 import com.companyname.demo.enums.DataSourceType;
 
